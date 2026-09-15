@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#c94e82">
-<title>Ward ورد — Révision du Qur'an · V6</title>
+<title>Ward ورد — Révision du Qur'an · V7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Amiri+Quran&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -86,7 +86,7 @@ h1{font:700 clamp(37px,7vw,68px)/1 "Playfair Display";letter-spacing:-.04em;marg
 .continue-label{text-align:center;color:var(--rose2);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}.continue-instruction{text-align:center;color:var(--muted);font-size:12px;line-height:1.5;margin-top:10px}.answer{margin-top:16px;padding-top:14px;border-top:1px dashed #e4bfd0}.answer-title{text-align:center;color:var(--rose2);font-size:11px;font-weight:700;margin-bottom:4px}
 .side{padding:16px}.side h3{font:700 20px "Playfair Display";margin:2px 0 6px}.side p{font-size:11.5px;color:var(--muted);line-height:1.5}
 .history{display:grid;gap:7px}.history-item{display:flex;justify-content:space-between;gap:8px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:13px;padding:9px 10px;font-size:11px}.history-item strong{font:17px "Amiri Quran"}
-.progress{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px}.p-dot{aspect-ratio:1;border:1px solid var(--line);background:#fff;border-radius:10px;display:grid;place-items:center;font-size:9px;font-weight:700;color:#a98695}.p-dot.easy{background:#e8f7ef}.p-dot.medium{background:#fff4dc}.p-dot.hard{background:#ffebe2}.p-dot.forgotten{background:#f9e3ea}.p-dot.inactive{opacity:.28;border-style:dashed}
+.progress{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-top:8px;max-height:410px;overflow:auto;padding-right:3px}.p-dot{aspect-ratio:1;border:1px solid var(--line);background:#fff;border-radius:10px;display:grid;place-items:center;font-size:9px;font-weight:700;color:#a98695}.p-dot.easy{background:#e8f7ef}.p-dot.medium{background:#fff4dc}.p-dot.hard{background:#ffebe2}.p-dot.forgotten{background:#f9e3ea}.p-dot.inactive{opacity:.28;border-style:dashed}
 details{margin-top:14px;border:1px solid var(--line);border-radius:15px;background:#fff;padding:10px 11px}summary{cursor:pointer;color:var(--rose2);font-size:11px;font-weight:700}
 .legend{display:grid;gap:6px;margin-top:9px}.legend div{font-size:10px;color:var(--muted)}
 .modal{position:fixed;inset:0;z-index:1000;background:rgba(58,31,43,.4);backdrop-filter:blur(7px);display:grid;place-items:center;padding:18px}.modal[hidden]{display:none}.modal-card{width:min(760px,100%);max-height:88vh;overflow:auto;background:#fffafc;border:1px solid #fff;border-radius:27px;box-shadow:0 30px 90px rgba(69,24,45,.28);padding:21px}.modal-head{display:flex;justify-content:space-between;gap:12px}.modal-head h2{font:700 27px "Playfair Display";margin:0}.modal-head p{font-size:11.5px;color:var(--muted);line-height:1.5}.close{width:40px;height:40px;border-radius:13px;background:#fff;color:var(--rose2);border:1px solid var(--line);font-size:20px}
@@ -126,7 +126,7 @@ html[data-theme="dark"] .cele-card{background:#321d29;border-color:#654156}
 
 <section class="hero">
 <span class="flower f1">✿</span><span class="flower f2">✦</span>
-<div class="eyebrow">Murājaʿah · Al‑Mulk → An‑Nās</div>
+<div class="eyebrow">Murājaʿah · Al‑Fātiḥah → An‑Nās</div>
 <h1>Réviser, consolider,<br>ne pas oublier.</h1>
 <p class="intro">Révise une sourate entière ou entraîne-toi avec <strong>« Continue l’āyah »</strong>. Le site retient tes niveaux, calcule quand revoir chaque sourate et suit ta progression.</p>
 
@@ -167,9 +167,9 @@ html[data-theme="dark"] .cele-card{background:#321d29;border-color:#654156}
 
 <div class="modal" id="managerModal" hidden>
 <div class="modal-card">
-  <div class="modal-head"><div><h2>Mes sourates 🌷</h2><p>Ajoute ou retire des sourates sans modifier le code.</p></div><button class="close" id="closeManager">×</button></div>
-  <div class="quick"><strong>J’ai appris jusqu’à…</strong><p>Choisis ta dernière sourate apprise : toutes celles de cette sourate à An‑Nās seront sélectionnées.</p><div class="quick-row"><select id="learnedUntil"></select><button class="btn primary" id="applyUntil">Mettre à jour</button></div></div>
-  <div class="manager-links"><button id="selectAll">Tout cocher</button><button id="clearAll">Tout décocher</button><button id="resetBalad">Al‑Balad → An‑Nās</button></div>
+  <div class="modal-head"><div><h2>Mes sourates 🌷</h2><p>Les 114 sourates sont disponibles. Ajoute ou retire celles que tu veux réviser sans modifier le code.</p></div><button class="close" id="closeManager">×</button></div>
+  <div class="quick"><strong>J’ai appris jusqu’à…</strong><p>Si tu apprends en remontant depuis An‑Nās, choisis la nouvelle sourate atteinte : elle et toutes les sourates suivantes seront sélectionnées.</p><div class="quick-row"><select id="learnedUntil"></select><button class="btn primary" id="applyUntil">Mettre à jour</button></div></div>
+  <div class="manager-links"><button id="selectAll">Tout le Coran</button><button id="clearAll">Tout décocher</button><button id="resetBalad">Al‑Balad → An‑Nās</button></div>
   <div class="manager-list" id="managerList"></div>
   <div class="save-row"><div class="summary" id="selectedSummary"></div><button class="btn primary" id="saveSelection">Enregistrer</button></div>
 </div>
@@ -185,75 +185,141 @@ html[data-theme="dark"] .cele-card{background:#321d29;border-color:#654156}
 <div class="celebration" id="celebration"><div class="cele-card" id="celeCard"></div></div>
 <div class="toast" id="toast"></div>
 
-<footer>Texte en Ḥafṣ, écriture ‘Uthmānī. Le rendu conserve la liaison des lettres arabes et les séparateurs d’āyah. Progression, notes, niveaux et thème sont enregistrés localement sur cet appareil.</footer>
+<footer>Les 114 sourates sont disponibles · Texte en Ḥafṣ, écriture ‘Uthmānī. Le rendu conserve la liaison des lettres arabes et les séparateurs d’āyah. Progression, notes, niveaux et thème sont enregistrés localement sur cet appareil.</footer>
 </main>
 
 <script>
 const SURAHS = [
-  {n:67, ar:"الْمُلْك", latin:"Al-Mulk", meaning:"La Royauté"},
-  {n:68, ar:"الْقَلَم", latin:"Al-Qalam", meaning:"La Plume"},
-  {n:69, ar:"الْحَاقَّة", latin:"Al-Hāqqah", meaning:"L’Inéluctable"},
-  {n:70, ar:"الْمَعَارِج", latin:"Al-Ma‘ārij", meaning:"Les Voies d’ascension"},
-  {n:71, ar:"نُوح", latin:"Nūh", meaning:"Noé"},
-  {n:72, ar:"الْجِنّ", latin:"Al-Jinn", meaning:"Les Djinns"},
-  {n:73, ar:"الْمُزَّمِّل", latin:"Al-Muzzammil", meaning:"L’Enveloppé"},
-  {n:74, ar:"الْمُدَّثِّر", latin:"Al-Muddaththir", meaning:"Le Revêtu d’un manteau"},
-  {n:75, ar:"الْقِيَامَة", latin:"Al-Qiyāmah", meaning:"La Résurrection"},
-  {n:76, ar:"الْإِنْسَان", latin:"Al-Insān", meaning:"L’Homme"},
-  {n:77, ar:"الْمُرْسَلَات", latin:"Al-Mursalāt", meaning:"Les Envoyés"},
-  {n:78, ar:"النَّبَأ", latin:"An-Naba’", meaning:"La Nouvelle"},
-  {n:79, ar:"النَّازِعَات", latin:"An-Nāzi‘āt", meaning:"Les Arracheurs"},
-  {n:80, ar:"عَبَس", latin:"‘Abasa", meaning:"Il s’est renfrogné"},
-  {n:81, ar:"التَّكْوِير", latin:"At-Takwīr", meaning:"L’Obscurcissement"},
-  {n:82, ar:"الْإِنْفِطَار", latin:"Al-Infitār", meaning:"La Rupture"},
-  {n:83, ar:"الْمُطَفِّفِين", latin:"Al-Mutaffifīn", meaning:"Les Fraudeurs"},
-  {n:84, ar:"الْإِنْشِقَاق", latin:"Al-Inshiqāq", meaning:"La Déchirure"},
-  {n:85, ar:"الْبُرُوج", latin:"Al-Burūj", meaning:"Les Constellations"},
-  {n:86, ar:"الطَّارِق", latin:"At-Tāriq", meaning:"L’Astre nocturne"},
-  {n:87, ar:"الْأَعْلَى", latin:"Al-A‘lā", meaning:"Le Très-Haut"},
-  {n:88, ar:"الْغَاشِيَة", latin:"Al-Ghāshiyah", meaning:"L’Enveloppante"},
-  {n:89, ar:"الْفَجْر", latin:"Al-Fajr", meaning:"L’Aube"},
-  {n:90, ar:"الْبَلَد", latin:"Al-Balad", meaning:"La Cité"},
-  {n:91, ar:"الشَّمْس", latin:"Ash-Shams", meaning:"Le Soleil"},
-  {n:92, ar:"اللَّيْل", latin:"Al-Layl", meaning:"La Nuit"},
-  {n:93, ar:"الضُّحَى", latin:"Ad-Duhā", meaning:"Le Jour montant"},
-  {n:94, ar:"الشَّرْح", latin:"Ash-Sharh", meaning:"L’Ouverture"},
-  {n:95, ar:"التِّين", latin:"At-Tīn", meaning:"Le Figuier"},
-  {n:96, ar:"الْعَلَق", latin:"Al-‘Alaq", meaning:"L’Adhérence"},
-  {n:97, ar:"الْقَدْر", latin:"Al-Qadr", meaning:"La Destinée"},
-  {n:98, ar:"الْبَيِّنَة", latin:"Al-Bayyinah", meaning:"La Preuve"},
-  {n:99, ar:"الزَّلْزَلَة", latin:"Az-Zalzalah", meaning:"La Secousse"},
-  {n:100, ar:"الْعَادِيَات", latin:"Al-‘Ādiyāt", meaning:"Les Coursiers"},
-  {n:101, ar:"الْقَارِعَة", latin:"Al-Qāri‘ah", meaning:"Le Fracas"},
-  {n:102, ar:"التَّكَاثُر", latin:"At-Takāthur", meaning:"La Course aux richesses"},
-  {n:103, ar:"الْعَصْر", latin:"Al-‘Asr", meaning:"Le Temps"},
-  {n:104, ar:"الْهُمَزَة", latin:"Al-Humazah", meaning:"Les Calomniateurs"},
-  {n:105, ar:"الْفِيل", latin:"Al-Fīl", meaning:"L’Éléphant"},
-  {n:106, ar:"قُرَيْش", latin:"Quraysh", meaning:"Quraysh"},
-  {n:107, ar:"الْمَاعُون", latin:"Al-Mā‘ūn", meaning:"L’Ustensile"},
-  {n:108, ar:"الْكَوْثَر", latin:"Al-Kawthar", meaning:"L’Abondance"},
-  {n:109, ar:"الْكَافِرُون", latin:"Al-Kāfirūn", meaning:"Les Mécréants"},
-  {n:110, ar:"النَّصْر", latin:"An-Nasr", meaning:"Le Secours"},
-  {n:111, ar:"الْمَسَد", latin:"Al-Masad", meaning:"Les Fibres"},
-  {n:112, ar:"الْإِخْلَاص", latin:"Al-Ikhlās", meaning:"Le Monothéisme pur"},
-  {n:113, ar:"الْفَلَق", latin:"Al-Falaq", meaning:"L’Aube naissante"},
-  {n:114, ar:"النَّاس", latin:"An-Nās", meaning:"Les Hommes"}
+  {n:1, ar:"الفاتحة", latin:"Al-Fātiḥah", meaning:"L’Ouverture"},
+  {n:2, ar:"البقرة", latin:"Al-Baqarah", meaning:"La Vache"},
+  {n:3, ar:"آل عمران", latin:"Āl ‘Imrān", meaning:"La Famille d’Imran"},
+  {n:4, ar:"النساء", latin:"An-Nisā’", meaning:"Les Femmes"},
+  {n:5, ar:"المائدة", latin:"Al-Mā’idah", meaning:"La Table servie"},
+  {n:6, ar:"الأنعام", latin:"Al-An‘ām", meaning:"Les Bestiaux"},
+  {n:7, ar:"الأعراف", latin:"Al-A‘rāf", meaning:"Les Murailles"},
+  {n:8, ar:"الأنفال", latin:"Al-Anfāl", meaning:"Le Butin"},
+  {n:9, ar:"التوبة", latin:"At-Tawbah", meaning:"Le Repentir"},
+  {n:10, ar:"يونس", latin:"Yūnus", meaning:"Jonas"},
+  {n:11, ar:"هود", latin:"Hūd", meaning:"Houd"},
+  {n:12, ar:"يوسف", latin:"Yūsuf", meaning:"Joseph"},
+  {n:13, ar:"الرعد", latin:"Ar-Ra‘d", meaning:"Le Tonnerre"},
+  {n:14, ar:"إبراهيم", latin:"Ibrāhīm", meaning:"Abraham"},
+  {n:15, ar:"الحجر", latin:"Al-Ḥijr", meaning:"Al-Hijr"},
+  {n:16, ar:"النحل", latin:"An-Naḥl", meaning:"Les Abeilles"},
+  {n:17, ar:"الإسراء", latin:"Al-Isrā’", meaning:"Le Voyage nocturne"},
+  {n:18, ar:"الكهف", latin:"Al-Kahf", meaning:"La Caverne"},
+  {n:19, ar:"مريم", latin:"Maryam", meaning:"Marie"},
+  {n:20, ar:"طه", latin:"Ṭā-Hā", meaning:"Ta-Ha"},
+  {n:21, ar:"الأنبياء", latin:"Al-Anbiyā’", meaning:"Les Prophètes"},
+  {n:22, ar:"الحج", latin:"Al-Ḥajj", meaning:"Le Pèlerinage"},
+  {n:23, ar:"المؤمنون", latin:"Al-Mu’minūn", meaning:"Les Croyants"},
+  {n:24, ar:"النور", latin:"An-Nūr", meaning:"La Lumière"},
+  {n:25, ar:"الفرقان", latin:"Al-Furqān", meaning:"Le Discernement"},
+  {n:26, ar:"الشعراء", latin:"Ash-Shu‘arā’", meaning:"Les Poètes"},
+  {n:27, ar:"النمل", latin:"An-Naml", meaning:"Les Fourmis"},
+  {n:28, ar:"القصص", latin:"Al-Qaṣaṣ", meaning:"Le Récit"},
+  {n:29, ar:"العنكبوت", latin:"Al-‘Ankabūt", meaning:"L’Araignée"},
+  {n:30, ar:"الروم", latin:"Ar-Rūm", meaning:"Les Romains"},
+  {n:31, ar:"لقمان", latin:"Luqmān", meaning:"Luqman"},
+  {n:32, ar:"السجدة", latin:"As-Sajdah", meaning:"La Prosternation"},
+  {n:33, ar:"الأحزاب", latin:"Al-Aḥzāb", meaning:"Les Coalisés"},
+  {n:34, ar:"سبأ", latin:"Saba’", meaning:"Saba"},
+  {n:35, ar:"فاطر", latin:"Fāṭir", meaning:"Le Créateur"},
+  {n:36, ar:"يس", latin:"Yā-Sīn", meaning:"Ya-Sin"},
+  {n:37, ar:"الصافات", latin:"Aṣ-Ṣāffāt", meaning:"Les Rangés"},
+  {n:38, ar:"ص", latin:"Ṣād", meaning:"Sad"},
+  {n:39, ar:"الزمر", latin:"Az-Zumar", meaning:"Les Groupes"},
+  {n:40, ar:"غافر", latin:"Ghāfir", meaning:"Le Pardonneur"},
+  {n:41, ar:"فصلت", latin:"Fuṣṣilat", meaning:"Les Versets détaillés"},
+  {n:42, ar:"الشورى", latin:"Ash-Shūrā", meaning:"La Consultation"},
+  {n:43, ar:"الزخرف", latin:"Az-Zukhruf", meaning:"L’Ornement"},
+  {n:44, ar:"الدخان", latin:"Ad-Dukhān", meaning:"La Fumée"},
+  {n:45, ar:"الجاثية", latin:"Al-Jāthiyah", meaning:"L’Agenouillée"},
+  {n:46, ar:"الأحقاف", latin:"Al-Aḥqāf", meaning:"Les Dunes"},
+  {n:47, ar:"محمد", latin:"Muḥammad", meaning:"Muhammad"},
+  {n:48, ar:"الفتح", latin:"Al-Fatḥ", meaning:"La Victoire"},
+  {n:49, ar:"الحجرات", latin:"Al-Ḥujurāt", meaning:"Les Appartements"},
+  {n:50, ar:"ق", latin:"Qāf", meaning:"Qaf"},
+  {n:51, ar:"الذاريات", latin:"Adh-Dhāriyāt", meaning:"Les Vents qui dispersent"},
+  {n:52, ar:"الطور", latin:"Aṭ-Ṭūr", meaning:"Le Mont"},
+  {n:53, ar:"النجم", latin:"An-Najm", meaning:"L’Étoile"},
+  {n:54, ar:"القمر", latin:"Al-Qamar", meaning:"La Lune"},
+  {n:55, ar:"الرحمن", latin:"Ar-Raḥmān", meaning:"Le Tout Miséricordieux"},
+  {n:56, ar:"الواقعة", latin:"Al-Wāqi‘ah", meaning:"L’Événement"},
+  {n:57, ar:"الحديد", latin:"Al-Ḥadīd", meaning:"Le Fer"},
+  {n:58, ar:"المجادلة", latin:"Al-Mujādilah", meaning:"La Discussion"},
+  {n:59, ar:"الحشر", latin:"Al-Ḥashr", meaning:"L’Exode"},
+  {n:60, ar:"الممتحنة", latin:"Al-Mumtaḥanah", meaning:"L’Éprouvée"},
+  {n:61, ar:"الصف", latin:"Aṣ-Ṣaff", meaning:"Le Rang"},
+  {n:62, ar:"الجمعة", latin:"Al-Jumu‘ah", meaning:"Le Vendredi"},
+  {n:63, ar:"المنافقون", latin:"Al-Munāfiqūn", meaning:"Les Hypocrites"},
+  {n:64, ar:"التغابن", latin:"At-Taghābun", meaning:"La Grande Perte"},
+  {n:65, ar:"الطلاق", latin:"Aṭ-Ṭalāq", meaning:"Le Divorce"},
+  {n:66, ar:"التحريم", latin:"At-Taḥrīm", meaning:"L’Interdiction"},
+  {n:67, ar:"الملك", latin:"Al-Mulk", meaning:"La Royauté"},
+  {n:68, ar:"القلم", latin:"Al-Qalam", meaning:"La Plume"},
+  {n:69, ar:"الحاقة", latin:"Al-Ḥāqqah", meaning:"L’Inéluctable"},
+  {n:70, ar:"المعارج", latin:"Al-Ma‘ārij", meaning:"Les Voies d’ascension"},
+  {n:71, ar:"نوح", latin:"Nūḥ", meaning:"Noé"},
+  {n:72, ar:"الجن", latin:"Al-Jinn", meaning:"Les Djinns"},
+  {n:73, ar:"المزمل", latin:"Al-Muzzammil", meaning:"L’Enveloppé"},
+  {n:74, ar:"المدثر", latin:"Al-Muddaththir", meaning:"Le Revêtu d’un manteau"},
+  {n:75, ar:"القيامة", latin:"Al-Qiyāmah", meaning:"La Résurrection"},
+  {n:76, ar:"الإنسان", latin:"Al-Insān", meaning:"L’Homme"},
+  {n:77, ar:"المرسلات", latin:"Al-Mursalāt", meaning:"Les Envoyés"},
+  {n:78, ar:"النبأ", latin:"An-Naba’", meaning:"La Nouvelle"},
+  {n:79, ar:"النازعات", latin:"An-Nāzi‘āt", meaning:"Les Anges qui arrachent"},
+  {n:80, ar:"عبس", latin:"‘Abasa", meaning:"Il s’est renfrogné"},
+  {n:81, ar:"التكوير", latin:"At-Takwīr", meaning:"L’Obscurcissement"},
+  {n:82, ar:"الانفطار", latin:"Al-Infiṭār", meaning:"La Rupture"},
+  {n:83, ar:"المطففين", latin:"Al-Muṭaffifīn", meaning:"Les Fraudeurs"},
+  {n:84, ar:"الانشقاق", latin:"Al-Inshiqāq", meaning:"La Déchirure"},
+  {n:85, ar:"البروج", latin:"Al-Burūj", meaning:"Les Constellations"},
+  {n:86, ar:"الطارق", latin:"Aṭ-Ṭāriq", meaning:"L’Astre nocturne"},
+  {n:87, ar:"الأعلى", latin:"Al-A‘lā", meaning:"Le Très-Haut"},
+  {n:88, ar:"الغاشية", latin:"Al-Ghāshiyah", meaning:"L’Enveloppante"},
+  {n:89, ar:"الفجر", latin:"Al-Fajr", meaning:"L’Aube"},
+  {n:90, ar:"البلد", latin:"Al-Balad", meaning:"La Cité"},
+  {n:91, ar:"الشمس", latin:"Ash-Shams", meaning:"Le Soleil"},
+  {n:92, ar:"الليل", latin:"Al-Layl", meaning:"La Nuit"},
+  {n:93, ar:"الضحى", latin:"Aḍ-Ḍuḥā", meaning:"Le Jour montant"},
+  {n:94, ar:"الشرح", latin:"Ash-Sharḥ", meaning:"L’Ouverture du cœur"},
+  {n:95, ar:"التين", latin:"At-Tīn", meaning:"Le Figuier"},
+  {n:96, ar:"العلق", latin:"Al-‘Alaq", meaning:"L’Adhérence"},
+  {n:97, ar:"القدر", latin:"Al-Qadr", meaning:"La Destinée"},
+  {n:98, ar:"البينة", latin:"Al-Bayyinah", meaning:"La Preuve"},
+  {n:99, ar:"الزلزلة", latin:"Az-Zalzalah", meaning:"La Secousse"},
+  {n:100, ar:"العاديات", latin:"Al-‘Ādiyāt", meaning:"Les Coursiers"},
+  {n:101, ar:"القارعة", latin:"Al-Qāri‘ah", meaning:"Le Fracas"},
+  {n:102, ar:"التكاثر", latin:"At-Takāthur", meaning:"La Course aux richesses"},
+  {n:103, ar:"العصر", latin:"Al-‘Aṣr", meaning:"Le Temps"},
+  {n:104, ar:"الهمزة", latin:"Al-Humazah", meaning:"Les Calomniateurs"},
+  {n:105, ar:"الفيل", latin:"Al-Fīl", meaning:"L’Éléphant"},
+  {n:106, ar:"قريش", latin:"Quraysh", meaning:"Quraysh"},
+  {n:107, ar:"الماعون", latin:"Al-Mā‘ūn", meaning:"L’Ustensile"},
+  {n:108, ar:"الكوثر", latin:"Al-Kawthar", meaning:"L’Abondance"},
+  {n:109, ar:"الكافرون", latin:"Al-Kāfirūn", meaning:"Les Mécréants"},
+  {n:110, ar:"النصر", latin:"An-Naṣr", meaning:"Le Secours"},
+  {n:111, ar:"المسد", latin:"Al-Masad", meaning:"Les Fibres"},
+  {n:112, ar:"الإخلاص", latin:"Al-Ikhlāṣ", meaning:"Le Monothéisme pur"},
+  {n:113, ar:"الفلق", latin:"Al-Falaq", meaning:"L’Aube naissante"},
+  {n:114, ar:"الناس", latin:"An-Nās", meaning:"Les Hommes"}
 ];
 const BASMALA = `بِسْمِ <tajweed class="ham_wasl">ٱ</tajweed>للَّهِ <tajweed class="ham_wasl">ٱ</tajweed><tajweed class="laam_shamsiyah">ل</tajweed>رَّحْمَ<tajweed class="madda_normal">ـٰ</tajweed>نِ <tajweed class="ham_wasl">ٱ</tajweed><tajweed class="laam_shamsiyah">ل</tajweed>رَّحِيمِ`;
 
 const DAY=86400000;
 const $=id=>document.getElementById(id);
 const drawCard=$("drawCard"),drawBtn=$("drawBtn"),revealBtn=$("revealBtn"),readerEmpty=$("readerEmpty"),readerContent=$("readerContent");
-let mode=localStorage.getItem("ward_mode_v6")||"full",selected=null,revealed=false,challenge=null,colorsOn=true,currentSession=null;
-let history=jget("ward_history",[]),logs=jget("ward_review_log",[]),notes=jget("ward_notes_v6",{}),srs=jget("ward_srs_v6",{});
+let mode=localStorage.getItem("ward_mode_v7")||"full",selected=null,revealed=false,challenge=null,colorsOn=true,currentSession=null;
+let history=jget("ward_history",[]),logs=jget("ward_review_log",[]),notes=jget("ward_notes_v7",jget("ward_notes_v6",{})),srs=jget("ward_srs_v7",jget("ward_srs_v6",{}));
 const oldMastery=jget("ward_mastery",{});
 const defaultActive=SURAHS.filter(s=>s.n>=90).map(s=>s.n);
-let active=jget("ward_active_surahs_v6",jget("ward_active_surahs_v5",defaultActive)).map(Number).filter(n=>SURAHS.some(s=>s.n===n));
+let active=jget("ward_active_surahs_v7",jget("ward_active_surahs_v6",jget("ward_active_surahs_v5",defaultActive))).map(Number).filter(n=>SURAHS.some(s=>s.n===n));
 if(!active.length)active=[...defaultActive];
 let draft=[...active],lastNumber=Number(localStorage.getItem("ward_last_surah")||0);
 
 function jget(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}}
-function save(){localStorage.setItem("ward_history",JSON.stringify(history));localStorage.setItem("ward_review_log",JSON.stringify(logs));localStorage.setItem("ward_notes_v6",JSON.stringify(notes));localStorage.setItem("ward_srs_v6",JSON.stringify(srs));localStorage.setItem("ward_active_surahs_v6",JSON.stringify(active))}
+function save(){localStorage.setItem("ward_history",JSON.stringify(history));localStorage.setItem("ward_review_log",JSON.stringify(logs));localStorage.setItem("ward_notes_v7",JSON.stringify(notes));localStorage.setItem("ward_srs_v7",JSON.stringify(srs));localStorage.setItem("ward_active_surahs_v7",JSON.stringify(active))}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
 function ad(n){return String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d])}
 function activeList(){return SURAHS.filter(s=>active.includes(s.n))}
@@ -275,7 +341,7 @@ function weighted(){
 function newSession(n,kind){currentSession=`${Date.now()}-${n}-${kind}-${Math.random().toString(36).slice(2,8)}`;history.unshift({n,ts:Date.now(),kind});history=history.slice(0,8);save()}
 
 function setMode(m){
- mode=m;localStorage.setItem("ward_mode_v6",m);$("fullMode").classList.toggle("active",m==="full");$("continueMode").classList.toggle("active",m==="continue");
+ mode=m;localStorage.setItem("ward_mode_v7",m);$("fullMode").classList.toggle("active",m==="full");$("continueMode").classList.toggle("active",m==="continue");
  $("modeHelp").textContent=m==="full"?"Une sourate est tirée : récite-la entièrement avant de révéler le muṣḥaf.":"Une āyah apparaît : récite l’āyah suivante de mémoire puis révèle la réponse.";
  drawBtn.textContent=m==="full"?"✦ Tirer une sourate":"✦ Nouveau défi";revealBtn.textContent=m==="full"?"Afficher le muṣḥaf":"Révéler la suite";revealBtn.disabled=true;
  selected=null;challenge=null;revealed=false;readerContent.hidden=true;readerEmpty.hidden=false;readerEmpty.innerHTML=`<div><span class="moon">☾</span><strong>${m==="full"?"Le texte reste caché pendant ta récitation.":"L’āyah de départ apparaîtra ici."}</strong><br>${m==="full"?"Révèle-le seulement pour te corriger.":"Récite la suivante avant de révéler."}</div>`;
@@ -312,7 +378,7 @@ function wireTools(){document.querySelectorAll("[data-r]").forEach(b=>b.onclick=
 
 async function revealFull(){
  revealBtn.disabled=true;readerEmpty.hidden=true;readerContent.hidden=false;readerContent.innerHTML=`<div class="loading">Chargement…</div>`;
- try{const verses=await fetchChapter(selected.n);const flow=verses.map((v,i)=>`<span>${verse(v,vnum(v,i+1))} </span>`).join("");readerContent.innerHTML=`<div class="reader-head"><div><h2>${selected.latin}</h2><p>${verses.length} āyāt · Ḥafṣ · écriture ‘Uthmānī</p></div><div class="tools"><button class="tiny" id="colorBtn">Tajwīd : ${colorsOn?"ON":"OFF"}</button><button class="tiny" id="hideBtn">Masquer</button></div></div><div class="mushaf ${colorsOn?"":"tajweed-off"}" id="mushaf"><div class="surah-title">سُورَةُ ${selected.ar}</div><div class="basmala">${renderArabic(BASMALA)}</div><div class="ayah-flow">${flow}</div></div>${ratingCard()}${notesCard()}`;$("colorBtn").onclick=()=>{colorsOn=!colorsOn;$("mushaf").classList.toggle("tajweed-off",!colorsOn);$("colorBtn").textContent=`Tajwīd : ${colorsOn?"ON":"OFF"}`};$("hideBtn").onclick=hideFull;wireTools();revealed=true;revealBtn.disabled=false;revealBtn.textContent="Masquer le muṣḥaf"}catch(e){readerContent.innerHTML=`<div class="error">Impossible de charger le texte. Vérifie ta connexion.</div>`;revealBtn.disabled=false}
+ try{const verses=await fetchChapter(selected.n);const flow=verses.map((v,i)=>`<span>${verse(v,vnum(v,i+1))} </span>`).join("");readerContent.innerHTML=`<div class="reader-head"><div><h2>${selected.latin}</h2><p>${verses.length} āyāt · Ḥafṣ · écriture ‘Uthmānī</p></div><div class="tools"><button class="tiny" id="colorBtn">Tajwīd : ${colorsOn?"ON":"OFF"}</button><button class="tiny" id="hideBtn">Masquer</button></div></div><div class="mushaf ${colorsOn?"":"tajweed-off"}" id="mushaf"><div class="surah-title">سُورَةُ ${selected.ar}</div>${selected.n===1||selected.n===9?"":`<div class="basmala">${renderArabic(BASMALA)}</div>`}<div class="ayah-flow">${flow}</div></div>${ratingCard()}${notesCard()}`;$("colorBtn").onclick=()=>{colorsOn=!colorsOn;$("mushaf").classList.toggle("tajweed-off",!colorsOn);$("colorBtn").textContent=`Tajwīd : ${colorsOn?"ON":"OFF"}`};$("hideBtn").onclick=hideFull;wireTools();revealed=true;revealBtn.disabled=false;revealBtn.textContent="Masquer le muṣḥaf"}catch(e){readerContent.innerHTML=`<div class="error">Impossible de charger le texte. Vérifie ta connexion.</div>`;revealBtn.disabled=false}
 }
 function hideFull(){revealed=false;readerContent.hidden=true;readerEmpty.hidden=false;readerEmpty.innerHTML=`<div><span class="moon">☾</span><strong>${selected.latin} est masquée.</strong><br>Tu peux refaire ta récitation.</div>`;revealBtn.textContent="Afficher le muṣḥaf"}
 function renderChallenge(show){const i=challenge.idx,a=challenge.verses[i],b=challenge.verses[i+1],an=vnum(a,i+1),bn=vnum(b,i+2);readerContent.hidden=false;readerEmpty.hidden=true;readerContent.innerHTML=`<div class="reader-head"><div><h2>Continue l’āyah · ${selected.latin}</h2><p>Lis l’āyah ${an}, puis récite la suivante.</p></div><button class="tiny" id="challengeColor">Tajwīd : ${colorsOn?"ON":"OFF"}</button></div><div class="card"><h3>À toi de continuer ✨</h3><p>Récite l’āyah suivante avant de révéler.</p><div class="continue-box ${colorsOn?"":"tajweed-off"}" id="challengeBox"><div class="continue-label">Āyah ${an}</div><div class="continue-ayah">${verse(a,an)}</div><div class="continue-instruction">Quelle est l’āyah suivante ?</div>${show?`<div class="answer"><div class="answer-title">La suite · āyah ${bn}</div><div class="continue-ayah">${verse(b,bn)}</div></div>`:""}</div></div>${show?ratingCard()+notesCard():""}`;$("challengeColor").onclick=()=>{colorsOn=!colorsOn;$("challengeBox").classList.toggle("tajweed-off",!colorsOn);$("challengeColor").textContent=`Tajwīd : ${colorsOn?"ON":"OFF"}`};if(show)wireTools()}
@@ -336,7 +402,7 @@ function celebrate(added){if(!added.length)return;$("celeCard").innerHTML=`<stro
 
 function statsModal(){const set=new Set(active),ls=logs.filter(x=>set.has(Number(x.n))&&logRating(x)),pts={forgotten:1,hard:2,medium:3,easy:4},avg=ls.length?(ls.reduce((a,x)=>a+(pts[logRating(x)]||0),0)/ls.length).toFixed(1):"—",dist={easy:0,medium:0,hard:0,forgotten:0,new:0};active.forEach(n=>dist[state(n).rating||"new"]++);const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-i);days.push({d,label:new Intl.DateTimeFormat("fr-FR",{weekday:"short"}).format(d),count:ls.filter(x=>x.ts>=d.getTime()&&x.ts<d.getTime()+DAY).length})}const max=Math.max(1,...days.map(x=>x.count)),due=active.map(n=>({n,st:state(n)})).sort((a,b)=>(a.st.dueAt||0)-(b.st.dueAt||0)).slice(0,8);$("statsContent").innerHTML=`<div class="metrics"><div class="metric"><strong>${ls.length}</strong><span>révisions évaluées</span></div><div class="metric"><strong>${ls.filter(x=>x.ts>Date.now()-7*DAY).length}</strong><span>sur 7 jours</span></div><div class="metric"><strong>${streak()}</strong><span>jours de série</span></div><div class="metric"><strong>${active.filter(n=>state(n).rating==="easy").length}/${active.length}</strong><span>sourates faciles</span></div><div class="metric"><strong>${active.filter(n=>!state(n).lastReviewed||state(n).dueAt<=Date.now()).length}</strong><span>dues maintenant</span></div><div class="metric"><strong>${avg}${avg==="—"?"":"/4"}</strong><span>niveau moyen</span></div></div><div class="section"><h3>7 derniers jours</h3><div class="bars">${days.map(x=>`<div class="bar-col"><small>${x.count}</small><div class="bar-track"><div class="bar" style="height:${Math.max(3,x.count/max*100)}%"></div></div><small>${x.label}</small></div>`).join("")}</div></div><div class="section"><h3>Répartition</h3><div class="dist">${[["Facile","easy","#4f9a75"],["Moyen","medium","#d2a646"],["Difficile","hard","#d18458"],["Oublié","forgotten","#c7567c"],["Non évaluée","new","#dba5bc"]].map(([l,k,c])=>`<div class="dist-row"><span>${l}</span><div class="dist-track"><div class="dist-fill" style="width:${active.length?dist[k]/active.length*100:0}%;background:${c}"></div></div><strong>${dist[k]}</strong></div>`).join("")}</div></div><div class="section"><h3>Prochaines à revoir</h3><div class="due-list">${due.map(x=>{const s=SURAHS.find(a=>a.n===x.n);const when=!x.st.lastReviewed?"À découvrir":x.st.dueAt<=Date.now()?"Maintenant":new Intl.DateTimeFormat("fr-FR",{day:"2-digit",month:"short"}).format(new Date(x.st.dueAt));return`<div class="due"><span>${s.n} · ${s.latin} · ${rlabel(x.st.rating)}</span><span>${when}</span><strong>${s.ar}</strong></div>`}).join("")}</div></div>`;$("statsModal").hidden=false;document.body.style.overflow="hidden"}
 
-function theme(t){document.documentElement.dataset.theme=t;localStorage.setItem("ward_theme_v6",t);$("themeBtn").textContent=t==="dark"?"☀":"☾"}theme(localStorage.getItem("ward_theme_v6")||"light")
+function theme(t){document.documentElement.dataset.theme=t;localStorage.setItem("ward_theme_v7",t);$("themeBtn").textContent=t==="dark"?"☀":"☾"}theme(localStorage.getItem("ward_theme_v7")||"light")
 
 $("themeBtn").onclick=()=>theme(document.documentElement.dataset.theme==="dark"?"light":"dark");
 $("statsBtn").onclick=statsModal;$("closeStats").onclick=()=>{$("statsModal").hidden=true;document.body.style.overflow=""};
