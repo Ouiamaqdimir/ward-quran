@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#c94e82">
-<title>Ward ورد — Révision du Qur'an · V7</title>
+<title>Ward ورد — Révision du Qur'an · V7.1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Amiri+Quran&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -115,6 +115,28 @@ html[data-theme="dark"] .cele-card{background:#321d29;border-color:#654156}
 
 @media(max-width:800px){.pill{display:none}.stats{grid-template-columns:repeat(2,1fr)}.draw-zone,.main{grid-template-columns:1fr}.actions{display:grid;grid-template-columns:1fr 1fr}.rates{grid-template-columns:repeat(2,1fr)}.reader-head{flex-direction:column}.manager-list{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.mode-switch{grid-template-columns:1fr}.actions,.quick-row{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}}
+
+.save-selection-btn{
+  min-width:190px;
+  box-shadow:0 12px 26px rgba(197,71,124,.23);
+}
+.selection-warning{
+  margin-top:9px;
+  padding:9px 11px;
+  border-radius:12px;
+  background:#fff4f8;
+  border:1px solid #efcada;
+  color:var(--rose2);
+  font-size:10.5px;
+  font-weight:700;
+  line-height:1.45;
+}
+html[data-theme="dark"] .selection-warning{
+  background:#3a2230;
+  border-color:#644052;
+  color:#f3a4c4;
+}
+
 </style>
 </head>
 <body>
@@ -168,10 +190,10 @@ html[data-theme="dark"] .cele-card{background:#321d29;border-color:#654156}
 <div class="modal" id="managerModal" hidden>
 <div class="modal-card">
   <div class="modal-head"><div><h2>Mes sourates 🌷</h2><p>Les 114 sourates sont disponibles. Ajoute ou retire celles que tu veux réviser sans modifier le code.</p></div><button class="close" id="closeManager">×</button></div>
-  <div class="quick"><strong>J’ai appris jusqu’à…</strong><p>Si tu apprends en remontant depuis An‑Nās, choisis la nouvelle sourate atteinte : elle et toutes les sourates suivantes seront sélectionnées.</p><div class="quick-row"><select id="learnedUntil"></select><button class="btn primary" id="applyUntil">Mettre à jour</button></div></div>
+  <div class="quick"><strong>J’ai appris jusqu’à…</strong><p>Si tu apprends en remontant depuis An‑Nās, choisis la nouvelle sourate atteinte puis clique sur « Sélectionner jusqu’ici ». Cette action modifie seulement la sélection : valide ensuite avec « Enregistrer ma liste ».</p><div class="quick-row"><select id="learnedUntil"></select><button class="btn primary" id="applyUntil">Sélectionner jusqu’ici</button></div></div>
   <div class="manager-links"><button id="selectAll">Tout le Coran</button><button id="clearAll">Tout décocher</button><button id="resetBalad">Al‑Balad → An‑Nās</button></div>
   <div class="manager-list" id="managerList"></div>
-  <div class="save-row"><div class="summary" id="selectedSummary"></div><button class="btn primary" id="saveSelection">Enregistrer</button></div>
+  <div class="save-row"><div><div class="summary" id="selectedSummary"></div><div class="selection-warning" id="selectionWarning" hidden></div></div><button class="btn primary save-selection-btn" id="saveSelection">✓ Enregistrer ma liste</button></div>
 </div>
 </div>
 
@@ -395,7 +417,27 @@ function updateStats(){const set=new Set(active),w=new Set(logs.filter(x=>x.ts>=
 function renderSide(){$("history").innerHTML=history.length?history.map(h=>{const s=SURAHS.find(x=>x.n===(typeof h==="number"?h:h.n));return s?`<div class="history-item"><span>${h.kind==="continue"?"🧠 ":""}${s.n} · ${s.latin}</span><strong>${s.ar}</strong></div>`:""}).join(""):`<div class="small-note">Aucun tirage pour le moment ♡</div>`;$("progress").innerHTML=SURAHS.map(s=>{const st=state(s.n),r=st.rating||"new",cls=!active.includes(s.n)?"inactive":r==="new"?"":r;return`<div class="p-dot ${cls}" title="${s.latin} · ${rlabel(r)}">${s.n}</div>`}).join("")}
 
 function buildManager(){draft=[...active];$("learnedUntil").innerHTML=[...SURAHS].reverse().map(s=>`<option value="${s.n}">${s.n} · ${s.latin} — ${s.ar}</option>`).join("");$("learnedUntil").value=String(Math.min(...active));renderManager()}
-function renderManager(){const set=new Set(draft);$("managerList").innerHTML=SURAHS.map(s=>`<label class="choice"><input type="checkbox" data-n="${s.n}" ${set.has(s.n)?"checked":""}><span>${s.n} · ${s.latin}</span><span class="ar">${s.ar}</span></label>`).join("");$("managerList").querySelectorAll("input").forEach(i=>i.onchange=()=>{draft=[...$("managerList").querySelectorAll("input:checked")].map(x=>Number(x.dataset.n)).sort((a,b)=>a-b);$("selectedSummary").textContent=`${draft.length} sourates sélectionnées`});$("selectedSummary").textContent=`${draft.length} sourates sélectionnées`}
+function showDraftStatus(){
+  $("selectedSummary").textContent=`${draft.length} sourate${draft.length>1?"s":""} sélectionnée${draft.length>1?"s":""}`;
+  const changed=JSON.stringify([...draft].sort((a,b)=>a-b))!==JSON.stringify([...active].sort((a,b)=>a-b));
+  const warning=$("selectionWarning");
+  if(changed){
+    warning.hidden=false;
+    warning.textContent=`Sélection modifiée (${draft.length} sourates) — clique sur « Enregistrer ma liste » pour l’appliquer au tirage.`;
+  }else{
+    warning.hidden=true;
+    warning.textContent="";
+  }
+}
+function renderManager(){
+  const set=new Set(draft);
+  $("managerList").innerHTML=SURAHS.map(s=>`<label class="choice"><input type="checkbox" data-n="${s.n}" ${set.has(s.n)?"checked":""}><span>${s.n} · ${s.latin}</span><span class="ar">${s.ar}</span></label>`).join("");
+  $("managerList").querySelectorAll("input").forEach(i=>i.onchange=()=>{
+    draft=[...$("managerList").querySelectorAll("input:checked")].map(x=>Number(x.dataset.n)).sort((a,b)=>a-b);
+    showDraftStatus();
+  });
+  showDraftStatus();
+}
 function openManager(){buildManager();$("managerModal").hidden=false;document.body.style.overflow="hidden"}function closeManager(){$("managerModal").hidden=true;document.body.style.overflow=""}
 function toast(t){$("toast").textContent=t;$("toast").classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>$("toast").classList.remove("show"),1800)}
 function celebrate(added){if(!added.length)return;$("celeCard").innerHTML=`<strong>Mā shā’ Allāh 🌷</strong><span>${added.length===1?`Nouvelle sourate ajoutée : ${SURAHS.find(s=>s.n===added[0]).latin}.`:`${added.length} nouvelles sourates ajoutées.`}<br>Qu’Allah facilite et raffermisse ta mémorisation.</span>`;$("celebration").querySelectorAll(".petal").forEach(x=>x.remove());for(let i=0;i<22;i++){const p=document.createElement("span");p.className="petal";p.textContent=["✿","❀","♡","✦"][i%4];p.style.left=`${Math.random()*100}vw`;p.style.animationDelay=`${Math.random()*.7}s`;$("celebration").appendChild(p)}$("celebration").classList.add("show");setTimeout(()=>$("celebration").classList.remove("show"),2500)}
@@ -408,9 +450,9 @@ $("themeBtn").onclick=()=>theme(document.documentElement.dataset.theme==="dark"?
 $("statsBtn").onclick=statsModal;$("closeStats").onclick=()=>{$("statsModal").hidden=true;document.body.style.overflow=""};
 $("manageBtn").onclick=openManager;$("closeManager").onclick=closeManager;
 $("managerModal").onclick=e=>{if(e.target===$("managerModal"))closeManager()};$("statsModal").onclick=e=>{if(e.target===$("statsModal")){$("statsModal").hidden=true;document.body.style.overflow=""}};
-$("applyUntil").onclick=()=>{const n=Number($("learnedUntil").value);draft=SURAHS.filter(s=>s.n>=n).map(s=>s.n);renderManager()};
-$("selectAll").onclick=()=>{draft=SURAHS.map(s=>s.n);renderManager()};$("clearAll").onclick=()=>{draft=[];renderManager()};$("resetBalad").onclick=()=>{draft=SURAHS.filter(s=>s.n>=90).map(s=>s.n);renderManager()};
-$("saveSelection").onclick=()=>{if(!draft.length){$("selectedSummary").textContent="Choisis au moins une sourate.";return}const before=new Set(active),next=[...new Set(draft)].sort((a,b)=>a-b),added=next.filter(n=>!before.has(n));active=next;save();renderSide();updateStats();closeManager();added.length?celebrate(added):toast("Ta liste est enregistrée ♡")};
+$("applyUntil").onclick=()=>{const n=Number($("learnedUntil").value);draft=SURAHS.filter(s=>s.n>=n).map(s=>s.n);renderManager();toast(`${draft.length} sourates sélectionnées — pense à enregistrer ♡`)};
+$("selectAll").onclick=()=>{draft=SURAHS.map(s=>s.n);renderManager();toast("114 sourates sélectionnées — pense à enregistrer ♡")};$("clearAll").onclick=()=>{draft=[];renderManager();toast("Sélection vidée — pense à enregistrer si c’est voulu")};$("resetBalad").onclick=()=>{draft=SURAHS.filter(s=>s.n>=90).map(s=>s.n);renderManager();toast("Al-Balad → An-Nās sélectionné — pense à enregistrer ♡")};
+$("saveSelection").onclick=()=>{if(!draft.length){$("selectedSummary").textContent="Choisis au moins une sourate.";return}const before=new Set(active),next=[...new Set(draft)].sort((a,b)=>a-b),added=next.filter(n=>!before.has(n));active=next;save();renderSide();updateStats();closeManager();added.length?celebrate(added):toast(`Ta liste de ${active.length} sourates est enregistrée ♡`)};
 $("fullMode").onclick=()=>setMode("full");$("continueMode").onclick=()=>setMode("continue");
 drawBtn.onclick=()=>mode==="full"?pickFull():pickContinue();revealBtn.onclick=()=>{if(!selected)return;if(mode==="full")revealed?hideFull():revealFull();else revealChallenge()};
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(!$("managerModal").hidden)closeManager();if(!$("statsModal").hidden){$("statsModal").hidden=true;document.body.style.overflow=""}}});
