@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#c94e82">
-<title>Ward ورد — Révision du Qur'an · V7.1</title>
+<title>Ward ورد — Révision du Qur'an · V7.2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Amiri+Quran&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -137,6 +137,41 @@ html[data-theme="dark"] .selection-warning{
   color:#f3a4c4;
 }
 
+
+.challenge-source{
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:15px;
+  border:1px solid var(--line);
+  background:var(--soft);
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:2px 12px;
+  align-items:center;
+  text-align:left;
+}
+.challenge-source span{
+  grid-column:1/-1;
+  font-size:10px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-weight:700;
+}
+.challenge-source strong{
+  font:26px "Amiri Quran";
+  direction:rtl;
+  color:var(--rose2);
+}
+.challenge-source b{
+  font-size:12px;
+  color:var(--ink);
+}
+html[data-theme="dark"] .challenge-source{
+  background:#3a2230;
+  border-color:#604052;
+}
+
 </style>
 </head>
 <body>
@@ -207,7 +242,7 @@ html[data-theme="dark"] .selection-warning{
 <div class="celebration" id="celebration"><div class="cele-card" id="celeCard"></div></div>
 <div class="toast" id="toast"></div>
 
-<footer>Les 114 sourates sont disponibles · Texte en Ḥafṣ, écriture ‘Uthmānī. Le rendu conserve la liaison des lettres arabes et les séparateurs d’āyah. Progression, notes, niveaux et thème sont enregistrés localement sur cet appareil.</footer>
+<footer>Les 114 sourates sont disponibles · Texte en Ḥafṣ, écriture ‘Uthmānī. Le rendu conserve la liaison des lettres arabes et les séparateurs d’āyah. Progression, notes, niveaux et thème sont enregistrés localement sur cet appareil. En mode « Continue l’āyah », le nom de la sourate reste caché jusqu’à la révélation.</footer>
 </main>
 
 <script>
@@ -378,7 +413,7 @@ function pickFull(){
 
 async function pickContinue(){
  selected=weighted();if(!selected){openManager();return}lastNumber=selected.n;localStorage.setItem("ward_last_surah",lastNumber);newSession(selected.n,"continue");revealed=false;revealBtn.disabled=true;
- drawCard.innerHTML=`<div><div class="surah-no">Continue l’āyah</div><div class="surah-ar">${selected.ar}</div><div class="surah-latin">${selected.latin}</div>${badge(selected.n)}</div>`;
+ drawCard.innerHTML=`<div><div class="surah-no">Défi aléatoire</div><div style="font-size:38px;margin:6px 0">🧠</div><div class="surah-latin">Continue l’āyah</div><div class="surah-meaning">Aucun indice sur la sourate avant la réponse</div></div>`;
  readerEmpty.hidden=true;readerContent.hidden=false;readerContent.innerHTML=`<div class="loading">Chargement…</div>`;
  try{const verses=await fetchChapter(selected.n);const idx=Math.floor(Math.random()*(verses.length-1));challenge={verses,idx,shown:false};renderChallenge(false);revealBtn.disabled=false;revealBtn.textContent="Révéler la suite"}catch(e){readerContent.innerHTML=`<div class="error">Impossible de charger ce défi. Vérifie ta connexion.</div>`}renderSide();updateStats()
 }
@@ -403,7 +438,51 @@ async function revealFull(){
  try{const verses=await fetchChapter(selected.n);const flow=verses.map((v,i)=>`<span>${verse(v,vnum(v,i+1))} </span>`).join("");readerContent.innerHTML=`<div class="reader-head"><div><h2>${selected.latin}</h2><p>${verses.length} āyāt · Ḥafṣ · écriture ‘Uthmānī</p></div><div class="tools"><button class="tiny" id="colorBtn">Tajwīd : ${colorsOn?"ON":"OFF"}</button><button class="tiny" id="hideBtn">Masquer</button></div></div><div class="mushaf ${colorsOn?"":"tajweed-off"}" id="mushaf"><div class="surah-title">سُورَةُ ${selected.ar}</div>${selected.n===1||selected.n===9?"":`<div class="basmala">${renderArabic(BASMALA)}</div>`}<div class="ayah-flow">${flow}</div></div>${ratingCard()}${notesCard()}`;$("colorBtn").onclick=()=>{colorsOn=!colorsOn;$("mushaf").classList.toggle("tajweed-off",!colorsOn);$("colorBtn").textContent=`Tajwīd : ${colorsOn?"ON":"OFF"}`};$("hideBtn").onclick=hideFull;wireTools();revealed=true;revealBtn.disabled=false;revealBtn.textContent="Masquer le muṣḥaf"}catch(e){readerContent.innerHTML=`<div class="error">Impossible de charger le texte. Vérifie ta connexion.</div>`;revealBtn.disabled=false}
 }
 function hideFull(){revealed=false;readerContent.hidden=true;readerEmpty.hidden=false;readerEmpty.innerHTML=`<div><span class="moon">☾</span><strong>${selected.latin} est masquée.</strong><br>Tu peux refaire ta récitation.</div>`;revealBtn.textContent="Afficher le muṣḥaf"}
-function renderChallenge(show){const i=challenge.idx,a=challenge.verses[i],b=challenge.verses[i+1],an=vnum(a,i+1),bn=vnum(b,i+2);readerContent.hidden=false;readerEmpty.hidden=true;readerContent.innerHTML=`<div class="reader-head"><div><h2>Continue l’āyah · ${selected.latin}</h2><p>Lis l’āyah ${an}, puis récite la suivante.</p></div><button class="tiny" id="challengeColor">Tajwīd : ${colorsOn?"ON":"OFF"}</button></div><div class="card"><h3>À toi de continuer ✨</h3><p>Récite l’āyah suivante avant de révéler.</p><div class="continue-box ${colorsOn?"":"tajweed-off"}" id="challengeBox"><div class="continue-label">Āyah ${an}</div><div class="continue-ayah">${verse(a,an)}</div><div class="continue-instruction">Quelle est l’āyah suivante ?</div>${show?`<div class="answer"><div class="answer-title">La suite · āyah ${bn}</div><div class="continue-ayah">${verse(b,bn)}</div></div>`:""}</div></div>${show?ratingCard()+notesCard():""}`;$("challengeColor").onclick=()=>{colorsOn=!colorsOn;$("challengeBox").classList.toggle("tajweed-off",!colorsOn);$("challengeColor").textContent=`Tajwīd : ${colorsOn?"ON":"OFF"}`};if(show)wireTools()}
+function renderChallenge(show){
+  const i=challenge.idx,a=challenge.verses[i],b=challenge.verses[i+1],an=vnum(a,i+1),bn=vnum(b,i+2);
+  readerContent.hidden=false;
+  readerEmpty.hidden=true;
+
+  const sourceInfo=show
+    ? `<div class="challenge-source"><span>Il s’agissait de</span><strong>${selected.ar}</strong><b>${selected.latin} · āyāt ${an} → ${bn}</b></div>`
+    : "";
+
+  readerContent.innerHTML=`
+    <div class="reader-head">
+      <div>
+        <h2>${show?`Continue l’āyah · ${selected.latin}`:"Continue l’āyah"}</h2>
+        <p>${show?`Réponse révélée · āyah ${an} puis ${bn}`:"Lis cette āyah puis récite celle qui vient juste après."}</p>
+      </div>
+      <button class="tiny" id="challengeColor">Tajwīd : ${colorsOn?"ON":"OFF"}</button>
+    </div>
+
+    <div class="card">
+      <h3>${show?"Vérifie ta réponse 🌷":"À toi de continuer ✨"}</h3>
+      <p>${show?"Compare avec ce que tu as récité.":"Aucun indice sur la sourate : récite simplement l’āyah suivante de mémoire."}</p>
+
+      <div class="continue-box ${colorsOn?"":"tajweed-off"}" id="challengeBox">
+        <div class="continue-label">${show?`Āyah ${an}`:"Āyah à continuer"}</div>
+        <div class="continue-ayah">${verse(a,an)}</div>
+        <div class="continue-instruction">${show?"Voici la suite :":"Quelle est l’āyah suivante ?"}</div>
+        ${show?`
+          <div class="answer">
+            <div class="answer-title">Āyah suivante · ${bn}</div>
+            <div class="continue-ayah">${verse(b,bn)}</div>
+          </div>`:""}
+      </div>
+
+      ${sourceInfo}
+    </div>
+
+    ${show?ratingCard()+notesCard():""}`;
+
+  $("challengeColor").onclick=()=>{
+    colorsOn=!colorsOn;
+    $("challengeBox").classList.toggle("tajweed-off",!colorsOn);
+    $("challengeColor").textContent=`Tajwīd : ${colorsOn?"ON":"OFF"}`;
+  };
+  if(show)wireTools();
+}
 function revealChallenge(){challenge.shown=!challenge.shown;revealed=challenge.shown;renderChallenge(challenge.shown);revealBtn.textContent=challenge.shown?"Masquer la suite":"Révéler la suite"}
 
 function rate(r){
